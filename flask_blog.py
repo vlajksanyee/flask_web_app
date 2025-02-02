@@ -21,11 +21,11 @@ test_posts = [
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html', posts=test_posts)
+    return render_template('home.html', posts=test_posts, title='Home')
 
 @app.route("/about")
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title='About')
 
 if __name__ == '__main__':
     app.run(debug=True)
