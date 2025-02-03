@@ -37,6 +37,10 @@ h6 {
     margin-bottom: 20px;
 }
 
+.content-section form div {
+    padding: 0.5em;
+}
+
 .article-title {
     color: #444444;
 }
