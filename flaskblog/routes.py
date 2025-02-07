@@ -2,7 +2,7 @@ from flask import flash, redirect, render_template, url_for
 from flaskblog import app, bcrypt, db
 from flaskblog.forms import RegistrationForm, LoginForm
 from flaskblog.models import User, Post
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 
 test_posts = [
     {
@@ -55,3 +55,8 @@ def login():
         else:
             flash('Login unsuccessful! Please check email and password.', 'danger')
     return render_template('login.html', title='Login', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
