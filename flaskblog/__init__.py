@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -7,6 +8,7 @@ app.config['SECRET_KEY'] = 'cbc57430ab3776309a656ca0c6db92eb'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
 
 from flaskblog import routes # import is here to prevent circular imports
 
