@@ -4,6 +4,7 @@ from flaskblog.forms import LoginForm, RegistrationForm, UpdateAccount
 from flaskblog.models import User, Post
 from flask_login import current_user, login_required, login_user, logout_user
 import os
+from PIL import Image
 import secrets
 
 test_posts = [
@@ -21,14 +22,17 @@ test_posts = [
     }
 ]
 
+
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('home.html', posts=test_posts, title='Home')
 
+
 @app.route("/about")
 def about():
     return render_template('about.html', title='About')
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -43,6 +47,7 @@ def register():
         flash(f'Your account has been created. You are now able to log in.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -64,12 +69,22 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 def save_picture(form_picture):
+    # Hex image name
     random_hex = secrets.token_hex(8)
+    # Get path
     _, file_ext = os.path.splitext(form_picture.filename)
     picture_file_name = random_hex + file_ext
     picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_file_name)
-    form_picture.save(picture_path)
+
+    # Resize image
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+
+    # Save and return resized image
+    i.save(picture_path)
     return picture_file_name
 
 @app.route("/account", methods=['GET', 'POST'])
