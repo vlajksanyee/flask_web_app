@@ -71,8 +71,14 @@ def logout():
 
 
 def save_picture(form_picture):
+    # Delete previous picture
+    prev_picture = os.path.join(app.root_path, 'static/profile_pics', current_user.image_file)
+    if not prev_picture.endswith('default.jpg'):
+        os.remove(prev_picture)
+
     # Hex image name
     random_hex = secrets.token_hex(8)
+
     # Get path
     _, file_ext = os.path.splitext(form_picture.filename)
     picture_file_name = random_hex + file_ext
