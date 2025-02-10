@@ -7,26 +7,12 @@ import os
 from PIL import Image
 import secrets
 
-test_posts = [
-    {
-        'author': 'Alex Butler',
-        'title': 'First test post',
-        'content': 'Content of first test post',
-        'date_posted': 'February 10, 2025'
-    },
-    {
-        'author': 'Diana Butler',
-        'title': 'Second test post',
-        'content': 'Content of second test post',
-        'date_posted': 'March 05, 2025'
-    }
-]
-
 
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html', posts=test_posts, title='Home')
+    posts = Post.query.all()
+    return render_template('home.html', posts=posts, title='Home')
 
 
 @app.route("/about")
@@ -118,6 +104,15 @@ def account():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
+        # Get post data
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+
+        # Add post to database
+        db.session.add(post)
+        db.session.commit()
+
+        # Display success and redirect to home page
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
+    
     return render_template('create_post.html', title='New post', form=form)
