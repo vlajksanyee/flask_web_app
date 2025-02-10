@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, request, url_for
+from flask import abort, flash, redirect, render_template, request, url_for
 from flaskblog import app, bcrypt, db
 from flaskblog.forms import LoginForm, PostForm, RegistrationForm, UpdateAccount
 from flaskblog.models import User, Post
@@ -115,10 +115,37 @@ def new_post():
         flash('Your post has been created!', 'success')
         return redirect(url_for('home'))
     
-    return render_template('create_post.html', title='New post', form=form)
+    return render_template('create_post.html', title='New post', form=form, legend='Update post')
 
 
 @app.route("/post/<int:post_id>")
 def post(post_id):
+    # Get post from database
     post = Post.query.get_or_404(post_id)
+
     return render_template('post.html', title=post.title, post=post)
+
+
+@app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    # Get post from database
+    post = Post.query.get_or_404(post_id)
+
+    # Check if author is current user
+    if post.author != current_user:
+        abort(403)
+
+    # Update database
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        flash('Your post has been updated!', 'success')
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET': # Fill update form with post title and content
+        form.title.data = post.title
+        form.content.data = post.content
+
+    return render_template('create_post.html', title='Update post', form=form, legend='Update post')
