@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for post in posts %}
+    {% for post in posts.items %}
         <article class="media content-section">
             <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="article-img rounded-circle">
             <div class="media-body">
@@ -16,4 +16,17 @@
             </div>
         </article>
     {% endfor %}
+    <div class="d-flex justify-content-center">
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <button class="btn btn-dark mb-4 m-1">{{ page_num }}</button>
+            {% else %}
+                <a class="btn btn-outline-secondary mb-4 m-1" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            <span class="mt-3">. . .</span>
+        {% endif %}
+    {% endfor %}
+    </div>
 {% endblock content %}
