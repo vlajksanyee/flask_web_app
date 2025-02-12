@@ -1,6 +1,7 @@
 from flask import abort, flash, redirect, render_template, request, url_for
 from flaskblog import app, bcrypt, db
-from flaskblog.forms import LoginForm, PostForm, RegistrationForm, UpdateAccount
+from flaskblog.forms import (LoginForm, PostForm, RegistrationForm,
+                             RequestResetForm, ResetPasswordForm, UpdateAccount)
 from flaskblog.models import User, Post
 from flask_login import current_user, login_required, login_user, logout_user
 import os
@@ -218,3 +219,25 @@ def user_posts(username):
         .paginate(page=page, per_page=5)
     
     return render_template('user_posts.html', posts=posts, user=user)
+
+
+@app.route("/reset_password", methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+    return render_template('reset_request.html', title='Reset password', form=form)
+
+
+@app.route("/reset_password/<token>", methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('Invalid token.', 'warning')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    return render_template('reset_token.html', title='Reset password', form=form)
