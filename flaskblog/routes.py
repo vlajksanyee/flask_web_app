@@ -221,23 +221,40 @@ def user_posts(username):
     return render_template('user_posts.html', posts=posts, user=user)
 
 
+def send_reset_email(user):
+    pass
+
+
 @app.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
+    '''Requests a password reset.'''
+
+    # Redirect to the home page if the user is logged in.
     if current_user.is_authenticated:
         return redirect(url_for('home'))
+    
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        
     return render_template('reset_request.html', title='Reset password', form=form)
 
 
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
+    '''Resets the user's password.'''
+
+    # Redirect to the home page if the user is logged in.
     if current_user.is_authenticated:
         return redirect(url_for('home'))
+    
+    # Check if the token is valid or not
     user = User.verify_reset_token(token)
+    
+    # user is None if the token is invalid
     if user is None:
         flash('Invalid token.', 'warning')
         return redirect(url_for('reset_request'))
+    
     form = ResetPasswordForm()
     return render_template('reset_token.html', title='Reset password', form=form)
