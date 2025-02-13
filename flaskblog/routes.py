@@ -227,7 +227,7 @@ def send_reset_email(user: User):
     '''Sends an email to the user with the reset token.'''
 
     token = user.get_reset_token()
-    msg = Message('Password Reset Request', sender='noreply@flaskblog.vs.com', recipients=[user.email])
+    msg = Message('Password Reset Request', sender='flaskblog.vs@gmail.com', recipients=[user.email])
     msg.body = f'''To reset your password, visit the following link
         {url_for('reset_token', token=token, _external=True)}
 
