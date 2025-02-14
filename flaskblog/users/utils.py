@@ -2,10 +2,10 @@
 import os
 import secrets
 
-from flask import url_for
+from flask import current_app, url_for
 from flask_login import current_user
 from flask_mail import Message
-from flaskblog import app, mail
+from flaskblog import mail
 from PIL import Image
 
 
@@ -13,7 +13,7 @@ def save_picture(form_picture):
     '''Updates a user's profile picture'''
 
     # Delete the current profile picture from the 'server'.
-    prev_picture = os.path.join(app.root_path, 'static/profile_pics', current_user.image_file)
+    prev_picture = os.path.join(current_app.root_path, 'static/profile_pics', current_user.image_file)
     if not prev_picture.endswith('default.jpg'):
         os.remove(prev_picture)
 
@@ -23,7 +23,7 @@ def save_picture(form_picture):
     # Assemble the path and filename of the new image with the hexed name.
     _, file_ext = os.path.splitext(form_picture.filename)
     picture_file_name = random_hex + file_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_file_name)
+    picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_file_name)
 
     # Resize the image.
     output_size = (125, 125)
