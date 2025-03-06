@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dark.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dark.css') if session.get('theme') == 'dark' else url_for('static', filename='main.css') }}">
     {% if title %}
     <title>Flask Blog - {{ title }}</title>
     {% else %}
@@ -39,6 +39,7 @@
                             <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Log in</a>
                             <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
                         {% endif %}
+                        <a href="{{ url_for('main.toggle_theme', current_page=request.path) }}" class="nav-link nav-item moon-icon">&#127769;</a>
                     </div>
                 </div>
             </div>
