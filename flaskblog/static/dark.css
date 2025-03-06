@@ -1,101 +1,40 @@
+@import url('main.css');
+
 body {
-    background: #141414;
-    color: #adadad;
-    padding-top: 5rem;
+    background: #272727 !important;
+    color: #cccccc;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #adadad;
+.container :is(h1, h2, h3, h4, h5, h6) {
+    color: #cccccc;
 }
 
+.small-text {
+    color: #cccccc;
+}
+
+/* Navbar */
 .bg-steel {
-    background-color: #000000;
+    background-color: #0f0f0f;
 }
 
-.site-header .navbar-nav .nav-link {
-    color: #adadad;
-}
-
-.site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
-}
-
-.site-header .navbar-nav .nav-link.active {
-    font-weight: 500;
-}
-
-.content-section {
-    background: #141414;
-    padding: 10px 20px;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 20px;
-}
-
-.content-section form div {
-    padding: 0.5em;
-}
+/* Post */
 
 a.article-author {
-    color: #adadad;
-    text-decoration: none;
-}
-
-a.article-author:hover {
-    color: #428bca;
-    text-decoration: none;
-}
-
-a.article-title {
-    color: #adadad;
-    text-decoration: none;
-}
-
-a.article-title:hover {
-    color: #428bca;
-    text-decoration: none;
-}
-
-.article-content {
-    white-space: pre-line;
-    color: #adadad;
-}
-
-.article-img {
-    height: 65px;
-    width: 65px;
-    margin-right: 16px;
-    float: left
+    color: #cccccc;
 }
 
 .article-metadata {
-    padding-bottom: 1px;
-    margin-bottom: 4px;
-    border-bottom: 1px solid #adadad
+    border-bottom: 1px solid #585858
 }
 
-.article-svg {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
+a.article-title {
+    color: #cccccc;
+    text-decoration: none;
 }
 
-.account-img {
-    height: 125px;
-    width: 125px;
-    margin-right: 20px;
-    margin-bottom: 16px;
-}
-
-.account-heading {
-    font-size: 2.5rem;
-}
-
-main {
-    background: #141414;
+.content-section {
+    background: #0f0f0f;
+    border: 1px solid #585858;
+    color: #cccccc;
 }
