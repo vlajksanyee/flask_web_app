@@ -1,3 +1,4 @@
+/* General */
 body {
     background: #fafafa;
     color: #333333;
@@ -8,6 +9,11 @@ body {
     color: #333333;
 }
 
+.small-text {
+    color: #333333;
+}
+
+/* Navbar */
 .bg-steel {
     background-color: #5f788a;
 }
@@ -24,6 +30,7 @@ body {
     font-weight: 500;
 }
 
+/* Content */
 .content-section {
     background: #ffffff;
     padding: 10px 20px;
@@ -36,6 +43,7 @@ body {
     padding: 0.5em;
 }
 
+/* Post */
 a.article-author {
     color: #444444;
     text-decoration: none;
