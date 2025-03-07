@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
     <article class="media content-section">
+        <!-- Profile pic -->
         <img src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" class="article-img rounded-circle">
         <div class="media-body">
 
+            <!-- Post header -->
             <div class="article-metadata">
                 <a class="mr-2 article-author" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
                 <small class="small-text">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
@@ -15,13 +17,14 @@
                 {% endif %}
             </div>
 
+            <!-- Post content -->
             <h2 class="article-title">{{ post.title }}</h2>
             <p class="article-content">{{ post.content }}</p>
 
         </div>
     </article>
 
-    <!-- Delete Modal -->
+    <!-- Delete post modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

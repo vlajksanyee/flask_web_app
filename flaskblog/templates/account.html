@@ -2,6 +2,7 @@
 {% block content %}
     <div class="content-section">
 
+        <!-- Account details -->
         <div class="media">
             <img class="rounded-circle account-img" src="{{ image_file }}">
             <div class="media-body">
@@ -10,12 +11,14 @@
             </div>
         </div>
 
+        <!-- Update account form -->
         <form method="POST" action="" enctype="multipart/form-data">
 
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Account info</legend>
 
+                <!-- Username field -->
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {% if form.username.errors %}
@@ -30,6 +33,7 @@
                     {% endif %}
                 </div>
 
+                <!-- Email field -->
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
@@ -44,6 +48,7 @@
                     {% endif %}
                 </div>
 
+                <!-- Profile pic -->
                 <div class="form-group">
                     {{ form.picture.label() }} </br>
                     {{ form.picture(class="form-control-file") }}
@@ -55,6 +60,7 @@
                 </div>
             </fieldset>
 
+            <!-- Submit button -->
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>

@@ -27,6 +27,7 @@ def about():
 def toggle_theme():
     '''Route to toggle dark theme on the page.'''
 
+    # Get the current theme and set it to the other if the button is clicked.
     current_theme = session.get("theme")
     if current_theme == "dark":
         session["theme"] = "light"

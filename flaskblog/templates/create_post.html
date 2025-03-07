@@ -7,6 +7,7 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ legend }}</legend>
 
+                <!-- Post title -->
                 <div class="form-group">
                     {{ form.title.label(class="form-control-label") }}
                     {% if form.title.errors %}
@@ -21,6 +22,7 @@
                     {% endif %}
                 </div>
 
+                <!-- Post content -->
                 <div class="form-group">
                     {{ form.content.label(class="form-control-label") }}
                     {% if form.content.errors %}
@@ -36,6 +38,7 @@
                 </div>
             </fieldset>
 
+            <!-- Submit button -->
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>

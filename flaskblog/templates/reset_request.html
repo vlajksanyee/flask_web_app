@@ -7,6 +7,7 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Reset password</legend>
 
+                <!-- Email field -->
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
@@ -23,6 +24,7 @@
                 
             </fieldset>
 
+            <!-- Submit button -->
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
